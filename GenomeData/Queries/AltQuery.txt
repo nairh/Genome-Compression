@@ -1,0 +1,17 @@
+SELECT 
+  STRING_AGG(alts, "") as alt
+FROM
+(SELECT
+  ARRAY_TO_STRING(alternate_bases, ",") as alts,
+  start
+FROM
+  `genomics-public-data.1000_genomes.variants` v,
+  v.call call
+WHERE
+  reference_name = 'chromosome'
+  AND vt = 'SNP'
+GROUP BY
+  start,
+  alts
+ORDER BY
+  start )

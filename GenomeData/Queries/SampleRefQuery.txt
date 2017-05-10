@@ -1,0 +1,11 @@
+SELECT
+  call_set_name
+FROM
+  `genomics-public-data.1000_genomes.variants` v,
+  v.call call
+WHERE
+  reference_name = 'chromosome'
+  AND vt = 'SNP'
+  AND call_set_name LIKE 'HG%'
+GROUP BY call_set_name
+ORDER BY call_set_name
